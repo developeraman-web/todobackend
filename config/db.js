@@ -1,13 +1,17 @@
 import mongoose from "mongoose";
 let uri = "mongodb+srv://amansharmapwl:aman@cluster0.fwzuw18.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
+let isConnected = false;
 const connectDb = async ()=>{
-    try{
+    if(isConnected) return;
+   
+     try{
         await mongoose.connect(uri);
-        console.log("mongo db connected");
+        isConnected = true;
     } catch (error){
-        console.log('mongo db connection error', error);
+        isConnected = false;
         process.exit(1);
 
     }
+ 
 };
 export default connectDb;
